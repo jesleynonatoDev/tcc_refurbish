@@ -1,0 +1,14 @@
+{
+    "App": {
+        "port": 3000,
+        "database": "mongo://localhost:27017/poc_refurbish",
+        "logger": {
+            "enabled": true,
+            "level": "info"
+        },
+        "auth": {
+            "key": "some-key",
+            "tokenExpiresIn": "20000000"
+        }
+    }
+}

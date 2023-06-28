@@ -1,0 +1,393 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "POC for tcc",
+    "description": "Refurbish API",
+    "termsOfService": "http://api_url/terms/",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "paths": {
+    "/refurbishs": {
+      "post": {
+        "tags": ["CRUD | C | operations"],
+        "description": "Create a new Refurbish",
+        "operationId": "createRefurbish",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Refurbish"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "The refurbish has been created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RefurbishCreatedResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Invalid parameters",
+                  "code": "400",
+                  "error": "Bad Request"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Conflict",
+                  "code": "409",
+                  "error": "Conflict"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["CRUD | R | operations"],
+        "description": "Get all refurbishs",
+        "operationId": "getAllRefurbishs",
+        "responses": {
+          "200": {
+            "description": "List all refurbishs ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RefurbishsListResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Refurbish not finded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Not results",
+                  "code": "404",
+                  "error": "Not founded"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/refurbishs/{id}": {
+      "get": {
+        "tags": ["CRUD | R | operations"],
+        "description": "Get refurbish by id",
+        "operationId": "findRefurbishById",
+        "responses": {
+          "200": {
+            "description": "Refurbish has finded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetRefurbishReponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Refurbish not finded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Not results",
+                  "code": "404",
+                  "error": "Not founded"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["CRUD | U | operations"],
+        "description": "Update data refurbish",
+        "operationId": "updateRefurbish",
+        "responses": {
+          "200": {
+            "description": "Data refurbish has updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdatedRefurbishReponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Refurbish not finded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Not results",
+                  "code": "404",
+                  "error": "Not founded"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["CRUD | D | operations"],
+        "description": "Delete refurbish",
+        "operationId": "deleteRefurbish",
+        "responses": {
+          "200": {
+            "description": "Refurbish has deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteRefurbishReponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Refurbish not finded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Not results",
+                  "code": "404",
+                  "error": "Not founded"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "fisrtName": {
+        "type": "string",
+        "example": "John"
+      },
+      "lastName": {
+        "type": "string",
+        "example": "Doe"
+      },
+      "refurbishName": {
+        "type": "string",
+        "example": "john.doe"
+      },
+      "email": {
+        "type": "string",
+        "example": "john.doe@mail.com"
+      },
+      "id": {
+        "type": "string",
+        "example": "5e8131eba7768d9e4f06c884"
+      },
+      "date": {
+        "type": "string",
+        "format": "date",
+        "example": "Tue Jun 20 2023 17:48:49 GMT-0300 (Horário Padrão de Brasília)" 
+      },
+      "Refurbish": {
+        "type": "object",
+        "properties": {
+          "refurbishName": {
+            "$ref": "#/components/schemas/refurbishName"
+          },
+          "email": {
+            "$ref": "#/components/schemas/email"
+          }
+        }
+      },
+      "RefurbishCreatedResponse": {
+        "type": "object",
+        "properties": {
+          "refurbish": {
+            "type": "object",
+            "properties": {
+              "fisrtName": {
+                "$ref": "#/components/schemas/fisrtName"
+              },
+              "lastName": {
+                "$ref": "#/components/schemas/lastName"
+              },
+              "refurbishName": {
+                "$ref": "#/components/schemas/refurbishName"
+              },
+              "email": {
+                "$ref": "#/components/schemas/email"
+              },
+              "id": {
+                "$ref": "#/components/schemas/id"
+              }
+            }
+          }
+        }
+      },
+      "RefurbishsListResponse": {
+        "type": "object",
+        "properties": {
+          "getAllRefurbishs": {
+            "type": "object",
+            "properties": {
+              "fisrtName": {
+                "$ref": "#/components/schemas/fisrtName"
+              },
+              "lastName": {
+                "$ref": "#/components/schemas/lastName"
+              },
+              "refurbishName": {
+                "$ref": "#/components/schemas/refurbishName"
+              },
+              "email": {
+                "$ref": "#/components/schemas/email"
+              },
+              "id": {
+                "$ref": "#/components/schemas/id"
+              }
+            }
+          } 
+        }
+      },
+      "GetRefurbishReponse": {
+        "type": "object",
+        "properties": {
+          "getRefurbish": {
+            "type": "object",
+            "properties": {
+              "fisrtName": {
+                "$ref": "#/components/schemas/fisrtName"
+              },
+              "lastName": {
+                "$ref": "#/components/schemas/lastName"
+              },
+              "refurbishName": {
+                "$ref": "#/components/schemas/refurbishName"
+              },
+              "email": {
+                "$ref": "#/components/schemas/email"
+              },
+              "id": {
+                "$ref": "#/components/schemas/id"
+              }
+            }
+          }
+        }
+      },
+      "UpdatedRefurbishReponse": {
+        "type": "object",
+        "properties": {
+          "getRefurbish": {
+            "type": "object",
+            "properties": {
+              "fisrtName": {
+                "$ref": "#/components/schemas/fisrtName"
+              },
+              "lastName": {
+                "$ref": "#/components/schemas/lastName"
+              },
+              "refurbishName": {
+                "$ref": "#/components/schemas/refurbishName"
+              },
+              "email": {
+                "$ref": "#/components/schemas/email"
+              },
+              "id": {
+                "$ref": "#/components/schemas/id"
+              },
+              "date": {
+                "$ref": "#/components/schemas/date"
+              }
+            }
+          }
+        }
+      },
+      "DeleteRefurbishReponse": {
+        "type": "object",
+        "properties": {
+          "getRefurbish": {
+            "type": "object",
+            "properties": {
+              "fisrtName": {
+                "$ref": "#/components/schemas/fisrtName"
+              },
+              "lastName": {
+                "$ref": "#/components/schemas/lastName"
+              },
+              "refurbishName": {
+                "$ref": "#/components/schemas/refurbishName"
+              },
+              "email": {
+                "$ref": "#/components/schemas/email"
+              },
+              "id": {
+                "$ref": "#/components/schemas/id"
+              }
+            }
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "code": {
+            "type": "number"
+          },
+          "error": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "documentation": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
